@@ -1,15 +1,25 @@
-print('''Витязь на распутье:
-         Налево (L) пойдёшь, вольну-волю обретёшь...
-         Направо (R) пойдёшь, коня потеряешь...
-         Прямо (F) пойдёшь, сыт ип весел будешь...''')
+# Формат вывода 2
 
-choice = input('Куда идём (L,R или F): ')
+name = 'Игорь'
+email = 'aaa@bbb.ru'
+age = 32
 
-if choice == 'L' or choice == 'l':
-    print('вольну-волю обретаешь, йоху!!!')
-elif choice == 'R':
-    print('коня потерял (((')
-elif choice == 'F':
-    print('сыт и весел... Ура!!!')
-else:
-    print('<<странный выбор -_->>')
+# 1 способ (плейсхолдеры)
+# %s - string
+# %d - digit (целое число)
+# %f - float
+print('Имя: %s, E-mail: %s, Возраст: %d' % (name, email, age))
+
+#2 способ c помощью формата
+print('Имя: {}, E-mail: {}, Возраст: {}'.format(name, email, age))
+
+#3 F - строки
+print(f'Имя: {name}, E-mail: {email}, Возраст: {age}')
+
+
+
+name = 'Игорь'
+email = 'aaa@bbb.ru'
+weight = 56.300
+
+print(f'Имя: {name}, E-mail: {email}, Возраст: {weight:6.2f}')
