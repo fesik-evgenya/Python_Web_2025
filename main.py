@@ -20,3 +20,7 @@ for _ in range(13):
 for i in range (1, 101):
     if i % 10 == 5 and i != 15:
         print(i)
+
+# обратно проитерироваться = reversed
+for i in reversed(range(1,101)):
+    print(i)
