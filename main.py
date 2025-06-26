@@ -1,16 +1,22 @@
-# Вводим коэффициенты
-a, b, c = int(input('введите a: ')), int(input('введите b: ')), int(input('введите c: '))
+# цикл for
+# for <переменная> in iterable:
+#   команды
 
-if a != 0:
-    # Дискриминант
-    d = b ** 2 - 4 * a * c
+word = 'поток'
 
-    # Вычисление корней
-    if d < 0:
-        print('Уравнение не имеет корней!')
-    elif d == 0:
-        print(f'Корень уравнения: {round(-b / (2 * a))}')
-    else:
-        print(f'Корни уравнения:\n\t\tx1 = {round((-b + d ** 0.5) / 2 * a)} \n\t\tx2 = {round((-b - d ** 0.5) / 2 * a)}')
-else:
-    print('По условию a не равно нулю! Начните программу заново!!!')
+for ch in word:
+    print(ch)
+
+# итератор range(start, stop, step)
+
+for i in range(2, 13, 2):
+    print(i)
+
+# если мы не используем переменную - то ставим _
+for _ in range(13):
+    print('Привет')
+
+
+for i in range (1, 101):
+    if i % 10 == 5 and i != 15:
+        print(i)
