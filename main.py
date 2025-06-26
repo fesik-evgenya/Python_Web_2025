@@ -1,16 +1,18 @@
-# Вводим коэффициенты
-a, b, c = int(input('введите a: ')), int(input('введите b: ')), int(input('введите c: '))
+# Циклы:
+# while
+# while <условие>:
+#     команды
+# for
+counter = 0  # обнуляем счётчик
 
-if a != 0:
-    # Дискриминант
-    d = b ** 2 - 4 * a * c
+# цикл из 5 операций
+while counter < 5:
+    print(f'Итерация номер {counter + 1}')
+    counter += 1  # инкремент
 
-    # Вычисление корней
-    if d < 0:
-        print('Уравнение не имеет корней!')
-    elif d == 0:
-        print(f'Корень уравнения: {round(-b / (2 * a))}')
-    else:
-        print(f'Корни уравнения:\n\t\tx1 = {round((-b + d ** 0.5) / 2 * a)} \n\t\tx2 = {round((-b - d ** 0.5) / 2 * a)}')
-else:
-    print('По условию a не равно нулю! Начните программу заново!!!')
+print(f'Итого в counter уже {counter}')
+print(f'Обратный отсчёт:')
+
+while counter > 0:
+    print(f'Итерация номер {counter}')
+    counter -= 1  # декремент
