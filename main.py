@@ -1,16 +1,25 @@
-# Вводим коэффициенты
-a, b, c = int(input('введите a: ')), int(input('введите b: ')), int(input('введите c: '))
+# Подбор по росту
+# 150 < height < 180
+# Число кандидатов
+# Число, кто прошёл по критерию
+# Среди прошедших min и max
+total = 0
+total_success = 0
+total_UnSuccess = 0
+min_height = float('inf')
+man_height = float('-inf')
 
-if a != 0:
-    # Дискриминант
-    d = b ** 2 - 4 * a * c
-
-    # Вычисление корней
-    if d < 0:
-        print('Уравнение не имеет корней!')
-    elif d == 0:
-        print(f'Корень уравнения: {round(-b / (2 * a))}')
+while (height := int(input('Введите рост: '))) != -1:
+    if 150 <= height <= 180:
+        total_success += 1
+        if height < min_height:
+            min_height = height
+        elif height > man_height:
+            man_height = height
     else:
-        print(f'Корни уравнения:\n\t\tx1 = {round((-b + d ** 0.5) / 2 * a)} \n\t\tx2 = {round((-b - d ** 0.5) / 2 * a)}')
-else:
-    print('По условию a не равно нулю! Начните программу заново!!!')
+        total_UnSuccess += 1
+    total += 1
+
+print(f"""~~Статистика по кандидатам~~\nВсего кандидатов:{total} человек;\nУспешно прошли по критерию:{total_success} \
+человек\nНе подошли:{total_UnSuccess} человек\nМинимальный рост успешных кандидатов:{min_height} см\nМаксимальный рост\
+ успешных кандидатов: {man_height} см""")
