@@ -1,41 +1,102 @@
-# Коллекции = (set, list, dict, tuple)
-# Множества - Set ()
-# Может хранить разные типы данных
-# Неупорядоченная коллекция данных
-# Множество убирает повторы автоматом
+# #Задача - исправить букву в слове сабака зная ошибку
+# s = 'сабака'
+# res = ''
+#
+# for i in range(len(s)):
+#     if i == 1:
+#         res += 'о'
+#     else:
+#         res += s[i]
+#
+# print(res)
+#
+# #Задача - исправить букву в слове сабака не зная ошибку
+# s = 'сабака'
+# s_right = 'собака'
+# res = ''
+# ind_ch_error = 'нет'
+#
+# for i in range(len(s)):
+#     if s[i] == s_right[i]:
+#         res += s[i]
+#     else:
+#         res += s_right[i]
+#         ind_ch_error = int(i)
+#
+# print(f'В слове {s} ошибка в символе № {ind_ch_error + 1}. Правильное слово {res}')
+#
+# # Таблица символов
+# s = '\xB0'  # значок градуса
+# u = '\u2603'  # снеговик
+#
+# # две удобные функции
+# # ord(символ) - возвращает код символа в Unicode
+# # chr(код) - возвращает символ по Unicode-коду
+#
+# print(u)
+# print('25' + s + 'C')
+# print(f'Код снеговика в Unicode: {ord('☃')}')
+# print(chr(9731))
+#
+# # Вывести любую фразу в шифре Unicode
+# s = input('Введите фразу для зашифровки: ')
+# a = set()
+#
+# for ch in s:
+#     a.add(ord(ch))
+#
+# for item in a:
+#     print(item, end=' ')
+#
+# # Обратно расшифровываем
+#
+# result = ''
+#
+# for item in a:
+#     result += chr(item)
+#
+# print(result)
+#
+# # Методы строк
+# abc = 'абвгдеёжзийклмнопрстуфхцшщъыьэюя'
 
-s = set()  # пустое множество
-print(dir(s))  # - список методов множества
+# print(dir(abc))
+"""
+'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith',
+'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum',
+'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower',
+'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join',
+'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'removeprefix',
+'removesuffix', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition',
+'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip',
+'swapcase', 'title', 'translate', 'upper', 'zfill'
+"""
 
-s = {'3', '5', '7', '3', '3'}
+phrase = 'Язык Python'
 
-s.add('8.5')  # добавление нового элемента
+print(phrase.lower())  # все маленькие буквы
+print(phrase.upper())  # все большие буквы
+print(phrase.capitalize())  # только первая буква заглавная
+print(phrase.title())  # Все слова с заглавной буквы
+print('Ура! ' * 3)
+print('Телевизор'.count('е'))  # посчитать количество нужного символа в строке
+print('Python'.index('y'))  # возврат первого индекса переданного символа
 
-s.remove('3')  # удаление элемента -> вызывает ошибку, если элемента нет в множестве
-s.discard('3')  # удаление элемента в слепую
-temp = s.pop()  # удаление случайного элемента с возвратом значения
+# Берём строку и каждая буква повторяется столько раз на каком она месте
+
+# for index in range(len(word := input('Введите слово: '))):
+#     print(word[index] * (index + 1), end='')
+
+# Метод strip() - убирает символы слева и справа, по умолчанию 'пробел'
+# Методы lstrip() b rstrip() - тоже самое, только с одного конца
+
+print(phrase.strip())
+temp = int(input('Введите количество: ').strip())
 print(temp)
 
-print(type(s)) # узнать класс объекта
+# Шифр Цезарь - ДЗ на выходные
+# сдвигает на какое-то количество нумерацию в символах
+# расшифровать и зашифровать
+# E - расшифровать, D - зашифровать, Q - выход из программы
 
-print(f'Число элементов в s = {len(s)}')
-
-print('Присутствует ли 3')
-if str(3) in s:
-    print('Да')
-else:
-    print('Нет')
-
-for item in s:
-    print(item)
-print(s)
-
-s.clear()  # удаление всех элементов из множества
-
-# 'add', 'clear', 'copy', 'difference',
-# 'difference_update', 'discard',
-# 'intersection', 'intersection_update',
-# 'isdisjoint', 'issubset', 'issuperset',
-# 'pop', 'remove', 'symmetric_difference',
-# 'symmetric_difference_update', 'union',
-# 'update'
+# abc = 'абвгдеёжзийклмнопрстуфхцшщъыьэюя'
