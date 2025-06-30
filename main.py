@@ -1,15 +1,42 @@
-print('''Витязь на распутье:
-         Налево (L) пойдёшь, вольну-волю обретёшь...
-         Направо (R) пойдёшь, коня потеряешь...
-         Прямо (F) пойдёшь, сыт ип весел будешь...''')
+# Методы строк - часть 2
+# Начало т окончание строки
+# startswith и endswith
+from itertools import count
 
-choice = input('Куда идём (L,R или F): ')
+s = 'Cмотреть'
 
-if choice == 'L' or choice == 'l':
-    print('вольну-волю обретаешь, йоху!!!')
-elif choice == 'R':
-    print('коня потерял (((')
-elif choice == 'F':
-    print('сыт и весел... Ура!!!')
+if s.lower().startswith('смо'):
+    print('Да')
+
+if s.endswith('еть'):
+    print('Да')
+
+# find('подстрока', 'start', 'end')
+# возвращает первое вхождение искомой подстроки
+# возвращает (-1) - значит не найдено
+
+
+s = 'Смотреть, вертеть, видеть'
+
+index = s.find('еть')  # с начала строки
+print(index)
+
+index = s.find('еть', 10)  # с позиции старт
+print(index)
+index = s.find('еть')
+print(index)
+
+s = 'синхрофазотрон'  # ищем 'о': сколько их и где находятся
+ch = 'о'
+
+if ch in s:
+    count = s.count(ch)
+    print(f'Буква \'{ch}\' встречается в слове "{s}" {count} раз(а).')
+    print('Её позиция/позиции:', end=' ')
+    start = 0
+    for i in range(count):
+        pos = s.find(ch, start)
+        start = pos + 1
+        print(pos, end=' ')
 else:
-    print('<<странный выбор -_-, очень>>')
+    print(f'Буквы \'{ch}\' нет в слове "{s}".')
