@@ -1,15 +1,16 @@
-print('''Витязь на распутье:
-         Налево (L) пойдёшь, вольну-волю обретёшь...
-         Направо (R) пойдёшь, коня потеряешь...
-         Прямо (F) пойдёшь, сыт ип весел будешь...''')
+# проверка ДЗ - через множества
+# фраза: ну, я типа, короче? вообще: короче, не , понимаю этот язык!
+from pyexpat.errors import messages
 
-choice = input('Куда идём (L,R или F): ')
+commas = (',', '!', '.', '?', '-', ':' )
+stop_words = {'ну', 'я', 'типа', 'короче', 'не'}
 
-if choice == 'L' or choice == 'l':
-    print('вольну-волю обретаешь, йоху!!!')
-elif choice == 'R':
-    print('коня потерял (((')
-elif choice == 'F':
-    print('сыт и весел... Ура!!!')
-else:
-    print('<<странный выбор -_-, очень>>')
+message = input('Введите сообщение: ')
+
+for z in commas:
+    message = message.replace(z, '')
+
+lst = message.split()
+
+for a, b in enumerate(sorted(set(lst) - stop_words), 1):
+    print(f'{a}. {b}')
