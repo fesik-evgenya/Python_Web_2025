@@ -1,75 +1,104 @@
-# частотность слов
-ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
-RUSSIAN_ABC = set([chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё'])
-ABC = (set(ENGLISH_ABC) ^ set(RUSSIAN_ABC) ^
-       set(map(lambda x: x.upper(), ENGLISH_ABC)) ^
-       set([x.upper() for x in RUSSIAN_ABC]))
-
-print(ENGLISH_ABC)
-print(RUSSIAN_ABC)
-print(ABC)
-
-txt = """Может, нас троих что-то связывало в прошлой жизни, иначе откуда во мне
- эта страсть к путешествиям? Урал, Сибирь, Камчатка, Сахалин,
- средневековые замки Испании, древние дороги Японии… В самих названиях
- мне слышится как будто зов Земли. Значит, Земля зовёт меня полюбоваться
- ею и открывает новые бездны и выси. """
-
-text = ''.join(filter(lambda x: x in ABC ^ {' '}, txt))
-print(txt)
-
-def remove_punc (text: str) -> str:
-    return ''.join(filter(lambda x: x in ABC ^ {' '}, text))
-
-
-print(remove_punc(txt))
-
-def get_words(text: str) -> list:
-    return remove_punc(text).split()
-
-
-def long_words(text: str, length:int=4) -> list:
-    return list(filter(lambda x: len(x) >= length, get_words(text)))
-
-
-print(long_words(txt))
-
-# частотный анализ слов с помощью словарного выражения
-d = {}
-words = get_words(txt)
-
-for word in words:
-    if word in d:
-        d[word] += 1
-    else:
-        d[word] = 1
-
-res = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse=True)}
-print(res)
-
-# сортировка списка списков
-goods = [
-    ['Утюг', 1500, 2],
-    ['Фен', 1200, 5],
-    ['Телевизор', 8000, 3]
-]
-print(sorted(goods, key=lambda s: (s[1], s[2], s[0])))  # сначала по цене, потом по количеству, потом по алфавиту
-
-# проверка коллекций
-# All() Any() - применяется ко всем итерируемым объектам
-# Any -> любой элемент коллекции, то тогда True
-# All -> все элементы коллекции, то тогда True
-
-print(all([1, 2, 3]))  # все элементы ненулевые, поэтому вернёт True
-print(all([1, 2, 0]))  # 1 элемент нулевой, поэтому вернёт False
-print(all([]))  # почему-то возвращает True
-
-words = 'один два три'.split()
-print(all(list(map(lambda x: len(x) > 3, words))))
-
-# Потоковый ввод - sys.stdin - это итератор (подобно range), но только в одну сторону
-# CTRL + D -> запуск в командной строке
+# Вывести фразу из потока, с наименьшим количеством слов в ней,
+# все слова через пробел
 import sys
 
 data = [d.strip('\n') for d in sys.stdin.readlines()]
-print(data)
+
+temp = [] # индекс строки в data и число слов в виде кортежей
+for i, s in enumerate(data):
+    temp.append((i, len(s.split())))
+
+temp.sort(key=lambda x:x[1])
+index = temp[0][0]
+res = sorted(data[index].split())
+print(*res, sep='-')
+
+# Рекурсия - возможна только в функции
+# Это такая функция, которая вызывает сама себя
+#
+# =
+def factorial(count: int) -> int:
+    result = 1
+    for i in range(2, count + 1):
+        result *= i
+    return result
+for x in range(10):
+    print(x, factorial(x))
+
+def factorial_rec(x: int) -> int:
+    if x == 1 or x == 0:  # базовый вариант
+        return 1  # базовый вариант
+    return x * factorial_rec(x - 1)  # рекурсивная "пружина"
+
+print( factorial_rec(10))
+
+# Черепашья графика
+import turtle as t
+
+def square(side: int) -> None:
+    for _ in range(4):
+        t.forward(side)
+        t.right(90)
+
+
+def flower(n: int, circle: int) -> None:
+    for _ in range(n):
+        t.circle(circle)
+        t.right(360 // n)
+
+N = 5
+colors = ['red', 'purple', 'blue', 'green', 'yellow', 'orange']
+
+t.bgcolor('black')
+angle = 360 // len(colors) -1
+
+for x in range(200):
+    t.pencolor(colors[x % len(colors)])
+    t.width(x // 100 + 1)
+    t.forward(x)
+    t.left(angle)
+
+flower(15, 20)
+
+t.speed(10)
+t.penup()
+t.goto((-300),300)
+t.pendown()
+
+flower(15, 20)
+
+t.penup()
+t.goto(0,0)
+t.pendown()
+
+for _ in range(N):
+    t.circle(50)
+    t.right(360 // N)
+
+t.penup()
+t.goto(300,-250)
+t.pendown()
+
+for _ in range(N):
+    square(100)
+    t.right(360 // N)
+
+#t.mainloop()
+# Фрактал - математическая структура, где какая-то фигура повторяется,
+# но с учётом масштаба, с рекурсией
+# фрактальное дерево
+def tree(length):
+    if length < 10:
+        return
+    t.forward(length)
+    t.left(30)
+    tree(length * 0.7)
+    t.right(60)
+    tree(length * 0.7)
+    t.left(30)
+    t.backward(length)
+
+
+t.left(90)
+tree(100)
+t.mainloop()
