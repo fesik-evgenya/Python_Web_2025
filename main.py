@@ -1,31 +1,4 @@
-# Анонимные функции
-# lambda-функции
-# lambda <аргументы>: выражения
-
-# Функция критерия отбора элементов списка
-# Критерий - первая буква
-is_first_letter_a = lambda  word: word[0] == 'а'
-
-string_contains = lambda s: 'ан' in s
-
-fruits = ['Слива', 'Ананас', 'Апельсин', 'Малина', 'Яблоко',
-         'Дыня', 'Смородина', 'Манго', 'Банан', 'Ежевика']
-result = list(filter(lambda fruit: len(fruit) > 6, fruits))
-result_first_letter = list(filter(lambda fruit: fruit[0] == 'А', fruits))
-result_contain_ch = list(filter(lambda word: 'ан' in word, fruits))
-
-print(result)
-print(result_first_letter)
-print(result_contain_ch)
-
-print(list(map(lambda x: x ** 2, range(3, 16))))  # то же самое =>
-print([i ** 2 for i in range(3, 16)])
-
-words = ['В', 'этом', 'списке', 'останутся', 'слова',
-         'длина', 'которых', 'больше', 'шести']
-long_words = [word for word in words if len(word) > 6]
-print(long_words)
-
+# частотность слов
 ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
 RUSSIAN_ABC = set([chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё'])
 ABC = (set(ENGLISH_ABC) ^ set(RUSSIAN_ABC) ^
@@ -37,9 +10,9 @@ print(RUSSIAN_ABC)
 print(ABC)
 
 txt = """Может, нас троих что-то связывало в прошлой жизни, иначе откуда во мне
- эта страсть к путешествиям? Урал, Сибирь, Камчатка, Сахалин, 
- средневековые замки Испании, древние дороги Японии… В самих названиях 
- мне слышится как будто зов Земли. Значит, Земля зовёт меня полюбоваться 
+ эта страсть к путешествиям? Урал, Сибирь, Камчатка, Сахалин,
+ средневековые замки Испании, древние дороги Японии… В самих названиях
+ мне слышится как будто зов Земли. Значит, Земля зовёт меня полюбоваться
  ею и открывает новые бездны и выси. """
 
 text = ''.join(filter(lambda x: x in ABC ^ {' '}, txt))
@@ -61,16 +34,42 @@ def long_words(text: str, length:int=4) -> list:
 
 print(long_words(txt))
 
-# Словарные выражения
-# словарь квадратов чётных чисел до 10 включительно
-squr_even = {n: n ** 2 for n in range(2, 11, 2)}
-print(squr_even)
-# умножаем каждое значение в словаре на 2
-souse_dict = {
-    'x': 1,
-    'y': 1,
-    'z': 1,
-}
+# частотный анализ слов с помощью словарного выражения
+d = {}
+words = get_words(txt)
 
-dest_dict = {k: v * 2 for k, v in souse_dict.items()}
-print(dest_dict)
+for word in words:
+    if word in d:
+        d[word] += 1
+    else:
+        d[word] = 1
+
+res = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse=True)}
+print(res)
+
+# сортировка списка списков
+goods = [
+    ['Утюг', 1500, 2],
+    ['Фен', 1200, 5],
+    ['Телевизор', 8000, 3]
+]
+print(sorted(goods, key=lambda s: (s[1], s[2], s[0])))  # сначала по цене, потом по количеству, потом по алфавиту
+
+# проверка коллекций
+# All() Any() - применяется ко всем итерируемым объектам
+# Any -> любой элемент коллекции, то тогда True
+# All -> все элементы коллекции, то тогда True
+
+print(all([1, 2, 3]))  # все элементы ненулевые, поэтому вернёт True
+print(all([1, 2, 0]))  # 1 элемент нулевой, поэтому вернёт False
+print(all([]))  # почему-то возвращает True
+
+words = 'один два три'.split()
+print(all(list(map(lambda x: len(x) > 3, words))))
+
+# Потоковый ввод - sys.stdin - это итератор (подобно range), но только в одну сторону
+# CTRL + D -> запуск в командной строке
+import sys
+
+data = [d.strip('\n') for d in sys.stdin.readlines()]
+print(data)
