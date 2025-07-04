@@ -3,54 +3,22 @@
 # PIL - Python Image Library
 # RGB
 # thumbnail
-from PIL import Image
+from PIL import Image, ImageDraw
 
-image = Image.open('./images/rabbit.jpg')
-x, y = image.size  # распаковка
-mode= image.mode
-pixels = image.load()  # загрузить таблицу пикселей
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
+POLY = [(50, 50), (150,50), (150,150)]
 
-print(f'Ширина = {x}, высота = {y}')
-print(f'Цветовая схема: {mode}')
+image = Image.new('RGB', (600, 400), (0, 0, 255))
+image.save('./images/blue.jpg')
 
-# Инверсия
-for i in range(x):
-    for j in range(y):
-        r, g, b = pixels[i, j]  # обращение идёт через кортеж
-        pixels [i, j]= b, r, g
+draw = ImageDraw.Draw(image)
+draw.line((0, 0, 600, 400),fill=RED, width=5)
+draw.line((600, 0, 0, 400),fill=RED, width=5)
+draw.rectangle((10, 10, 590, 390), outline=WHITE)
+draw.ellipse((250, 150, 350, 250), fill=WHITE)
 
-image.save('./images/rabbit2.jpg')
+draw.polygon(POLY, outline='green', width=5)
+draw.text((150, 50), 'Текст', fill=WHITE, font_size=45)
 
-# Негатив
-for i in range(x):
-    for j in range(y):
-        r, g, b = pixels[i, j]  # обращение идёт через кортеж
-        pixels [i, j]= 255 - r, 255 - g, 255 - b
-
-image.save('./images/rabbit2.jpg')
-
-# Grayscale
-for i in range(x):
-    for j in range(y):
-        r, g, b = pixels[i, j]  # обращение идёт через кортеж
-        average = (r + g + b) // 3
-        pixels [i, j]= average, average, average
-
-image.save('./images/rabbit2.jpg')
-
-# Rotate
-image_rotate = image.rotate(180)
-image_rotate.save('./images/rabbit_rotate.jpg')
-
-# Отразить горизонтально
-image.transpose(Image.Transpose.FLIP_LEFT_RIGHT).save('./images/rabbit_flip.jpg')
-
-# Вырезать нужный кусок
-# верхний левый угол = x, y; правый нижний угол = x, y
-image.crop((180, 40, 520, 430)).save('./images/rabbit_crop.jpg')
-
-# Вырезать нужный кусок
-# верхний левый угол = x, y; правый нижний угол = x, y
-x, y = image.size
-ratio = x // y
-image.resize((100, )).save('./images/rabbit_resize.jpg')
+image.save('./images/blue.jpg')
