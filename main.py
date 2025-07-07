@@ -1,63 +1,33 @@
-# Файлы - это набор данных, сохраненный на носителе, содержащий
-# имя и расширение ( которое связывает с исполняющей программой)
-# Два типа в питоне = t - текстовые и p - бинарные(jpg, avi, mp3)
-# w - write (запись, создаётся), но всё что было до этого - стирается
-# a - append (запись идёт в конец)
-# r - читать (файл должен существовать)
-# одновременно читать и записывать нельзя!!! только по очереди - открыл, закрыл
-# Открытие с менеджером контеста
+# Файлы и ОС-модули
+# позволяет создавать различные библиотеки, файлы и т.п.
 
-# проследит что бы файл закрылся - тот файл который успешно открылся.
-with open('info.txt', 'wt', encoding='utf-8') as fo:
-    text= fo.read()
-    lst = text.splitlines()
-    print(lst)
+import os
 
-print(fo.mode)
-print(fo.name)
-print(fo.encoding)
+# будет создана директория в корневом каталоге
+os.mkdir('libs')
 
-count = fo.write('Этот текст будет в файле!')
-print('В файл записано', count, 'байт!')
-fo.close()
+# Мягкое создание директории ( вместо mkdir)
+os.makedirs('libs', exist_ok=True)
 
-fo = open('info.txt', 'rt', encoding='utf-8')
+# удаление директории
+os.rmdir('libs')
 
-# каждый раз read начинает читать с того места, гед остановился в прошлый раз
-text = fo.read(11)  # на вход принимает сколько байт читать
-fo.read(6)
-text += fo.read(7)
+# проверка существования пути
+os.path.exists('libs')
 
-print('Вот, что было в файле', end=': ')
-print(text)
+# get current working directory
+path = os.getcwd()
+print(path)
 
-fo.close()
+# выйти на нужную директорию
+os.chdir(path + '/images')
 
-# добавляем текст в конец файла
-fo = open('info.txt', 'at', encoding='utf-8')
+# выскочить на уровень выше и занырнуть в другую директорию
+os.chdir('..')
+os.chdir(path + '/fonts')
+print(os.getcwd())
 
-# fo.write(' Хороший текст.')
-print('\nА вот это будет уже с новой строки.', file=fo)
-print('\nВот ещё одна строка.', file=fo)
-fo.close()
-
-fo = open('info.txt', 'rt', encoding='utf-8')
-text = fo.readline()
-print(text)
-
-# построчное чтение №1
-while text := fo.readline():
-    print(text.rstrip('\n'))
-
-# построчное чтение №2
-lst = fo.readlines()
-lst = list(map(lambda x: x.strip('\n'), lst))
-print(lst)
-
-# построчное чтение №3
-text = fo.read()
-lst = text.splitlines()
-print(lst)
-
-fo.close()
-
+# получить список всех файлов в директории по условию
+all_files = [f for f in os.listdir('.') if f.endswith('.ttf')]
+os.chdir('..')
+print(all_files)
