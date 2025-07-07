@@ -1,27 +1,59 @@
-from PIL import Image  # Ctrl + Alt + O = убрать неиспользуемые методы
+## Внешние библиотеки
+## Документы
+## Word - DOCX (python - DOCX)
+# from docx import Document
+# from docx.enum.text import WD_ALIGN_PARAGRAPH
+# # для размеров
+# from docx.shared import  Mm   # Inches(дюймы) Mm(миллиметры) Pt(Поинт - 1/72 дюйма)
+#
+# doc = Document()  # создание экземпляра документа
+# # Добавление заголовка
+# heading = doc.add_heading('Отчёт за месяц', 1)
+# heading.alignment= WD_ALIGN_PARAGRAPH.CENTER
+#
+# paragraph = doc.add_paragraph('В этом отчёте представлены')
+# paragraph.alignment= WD_ALIGN_PARAGRAPH.CENTER
+# # run - что-то внутри абзаца ( текст, картинка и т.п.)
+# paragraph.add_run(' ключевые показатели').bold = True
+#
+# # Новый параграф для списка
+# paragraph = doc.add_paragraph()  # вставляем пустую строку
+# paragraph_format = paragraph.paragraph_format
+# paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+#
+# # маркированный список
+# paragraph = doc.add_paragraph('Первый пункт', style='List Bullet')
+# paragraph = doc.add_paragraph('Второй пункт', style='List Bullet')
+#
+# # нумерованный список
+# paragraph = doc.add_paragraph('Первый пункт', style='List Number')
+# paragraph = doc.add_paragraph('Второй пункт', style='List Number')
+#
+# # добавляем таблицу
+# table = doc.add_table(rows=3, cols=3)
+# # Заполняем таблицу
+# for i, row in enumerate(table.rows):
+#     for j, cell in enumerate(table.columns):
+#         cell.text = f'Строка {i+1}, Столбец{j+1}'
+#
+# doc.add_paragraph()
+# doc.add_picture('./images/sunny_day_2.jpg', width=Mm(105))
+#
+# doc.save('./docs/report.docx')
 
-orig = Image.open('./images/sunny_day_2.jpg').convert('RGB')
+# Word - DOCX (docxtpl)
+from docxtpl import DocxTemplate
 
-up = orig.crop((0, 0, 600, 200))  # половина изображения - верхняя часть
-down = orig.crop((0, 200, 600, 400))  # половина изображения - нижняя часть
+# Загрузка шаблона
+doc = DocxTemplate('./docs/template.docx')
 
-new = Image.new('RGB', (600, 400))
+# Данные для подставки в шаблон
+content = {
+    'company': 'ООО "Монолит"',
+    'employee': 'Петров Д.И.',
+    'position': 'Менеджер',
+    'date': '01/01/2025'
+}
 
-new.paste(down, (0, 0))  # верхний левый угол по этим координатам
-new.paste(up, (0, 200))  # верхний левый угол по этим координатам
-
-new.show()
-
-from PIL import ImageFilter, ImageEnhance
-
-orig = Image.open('./images/rabbit.jpg').convert('RGB')
-# Размытие
-blur_image = orig.filter(ImageFilter.GaussianBlur(1))
-blur_image.show()
-# Усиление резкости
-enchancer = ImageEnhance.Sharpness(orig)
-sharpened_image = enchancer.enhance(4.0)
-sharpened_image.show()
-# получить контуры изображения
-edges = orig.filter(ImageFilter.FIND_EDGES)
-edges.show()
+doc.render(content)
+doc.save('docs/about.docx')
