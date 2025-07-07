@@ -1,45 +1,27 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image  # Ctrl + Alt + O = убрать неиспользуемые методы
 
-# https://fontsforyou.com/ru/specific-fonts/ttf-fonts/languageru
-W = 600
-H = 400
+orig = Image.open('./images/sunny_day_2.jpg').convert('RGB')
 
-image = Image.new('RGB',
-                  (W, H),
-                  (0, 163, 232))
+up = orig.crop((0, 0, 600, 200))  # половина изображения - верхняя часть
+down = orig.crop((0, 200, 600, 400))  # половина изображения - нижняя часть
 
-draw = ImageDraw.Draw(image)
+new = Image.new('RGB', (600, 400))
 
-text = 'Солнечный день'
-# draw.ellipse((470, -120, 800, 120), outline='yellow', fill='yellow')
-draw.circle((600, 0), 100, fill='yellow')
-font = ImageFont.truetype(
-    font='./fonts/main_font.ttf',  # можно использовать любой установленный шрифт
-    size=40
-)
-# Получаем размеры текста с помощью распаковки
-_, _, w, h = draw.textbbox((0, 0), text, font=font)
+new.paste(down, (0, 0))  # верхний левый угол по этим координатам
+new.paste(up, (0, 200))  # верхний левый угол по этим координатам
 
-# Рассчитываем позицию для центрирования
-x = (W - w) // 2
-y = (H - h) // 2
+new.show()
 
-draw.text((x, y), text, fill=(255, 255, 0), font=font)
+from PIL import ImageFilter, ImageEnhance
 
-image.save('images/sunny_day_2.jpg')  # image.show() - показать картинку без сохранения
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+orig = Image.open('./images/rabbit.jpg').convert('RGB')
+# Размытие
+blur_image = orig.filter(ImageFilter.GaussianBlur(1))
+blur_image.show()
+# Усиление резкости
+enchancer = ImageEnhance.Sharpness(orig)
+sharpened_image = enchancer.enhance(4.0)
+sharpened_image.show()
+# получить контуры изображения
+edges = orig.filter(ImageFilter.FIND_EDGES)
+edges.show()
