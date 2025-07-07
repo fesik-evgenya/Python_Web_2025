@@ -1,59 +1,51 @@
 # Внешние библиотеки
 # Документы
-# Word - DOCX (python - DOCX)
-from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-# для размеров
-from docx.shared import  Mm   # Inches(дюймы) Mm(миллиметры) Pt(Поинт - 1/72 дюйма)
+# Excel (openpyxl)
+# работа с формулами: ws['A3'] = "=SUM(A1:A10)"
+# Форматирование = from openpyxl.style import Font
+#                  ws['A1'].font = Font(bolt=True, size=14)
+from openpyxl import Workbook, load_workbook
+#
+# # Создаём пустой Excel-файл
+# wb = Workbook()
+# ws = wb.active
+# ws.title = 'Отчёт'
+#
+# wb.save('./docs/report.xlsx')
 
-doc = Document()  # создание экземпляра документа
-# Добавление заголовка
-heading = doc.add_heading('Отчёт за месяц', 1)
-heading.alignment= WD_ALIGN_PARAGRAPH.CENTER
+# Запись данных в существующий файл
+wb = load_workbook('./docs/report.xlsx')
+# обращаемся к активному листу
+ws = wb.active
 
-paragraph = doc.add_paragraph('В этом отчёте представлены')
-paragraph.alignment= WD_ALIGN_PARAGRAPH.CENTER
-# run - что-то внутри абзаца ( текст, картинка и т.п.)
-paragraph.add_run(' ключевые показатели').bold = True
+# Способы записи
+ws['A1'] = 'Отчёт за 01.06.2025 - 15.06.2025 гг'
+ws.cell(row=2, column=1, value='Автор: Фесик Е.В.')
 
-# Новый параграф для списка
-paragraph = doc.add_paragraph()  # вставляем пустую строку
-paragraph_format = paragraph.paragraph_format
-paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+# заполняем
+ws['A4'] = 'ФИО'
+ws['B4'] = 'Должность'
+ws['C4'] = 'Отдел'
 
-# маркированный список
-paragraph = doc.add_paragraph('Первый пункт', style='List Bullet')
-paragraph = doc.add_paragraph('Второй пункт', style='List Bullet')
+# Данные
+employees = [
+    ['Иванов И.И.', 'Менеджер', 'Продажи'],
+    ['Петров П.П.', 'Бухгалтер', 'Финансы'],
+    ['Сидорова С.С.', 'Аналитик', 'IT'],
+]
 
-# нумерованный список
-paragraph = doc.add_paragraph('Первый пункт', style='List Number')
-paragraph = doc.add_paragraph('Второй пункт', style='List Number')
+for row, data in enumerate(employees, start=5):
+    ws.cell(row=row, column=1, value=data[0])
+    ws.cell(row=row, column=2, value=data[1])
+    ws.cell(row=row, column=3, value=data[2])
 
-# добавляем таблицу
-table = doc.add_table(rows=3, cols=3)
-# Заполняем таблицу
-for i, row in enumerate(table.rows):
-    for j, cell in enumerate(table.columns):
-        cell.text = f'Строка {i+1}, Столбец{j+1}'
+wb.save('./docs/report_01062025-15062025.xlsx')
 
-doc.add_paragraph()
-doc.add_picture('./images/sunny_day_2.jpg', width=Mm(105))
+wb = load_workbook('./docs/report_01062025-15062025.xlsx')
+ws = wb.active
 
-doc.save('./docs/report.docx')
+rows_count = ws.max_row  # число заполненных строк
 
-# Word - DOCX (docxtpl)
-from docxtpl import DocxTemplate
-
-# Загрузка шаблона
-doc = DocxTemplate('./docs/template.docx')
-
-# Данные для подставки в шаблон
-content = {
-    'company': 'ООО "Монолит"',
-    'employee': 'Петров Д.И.',
-    'position': 'Менеджер',
-    'date': '01/01/2025'
-}
-
-doc.render(content)
-doc.save('docs/about.docx')
+for row in ws.iter_rows(values_only=True, min_row=5):
+    fio, pos, dept = row
+    print(f'Фамилия: {fio}, Должность: {pos}, Отдел: {dept}')
