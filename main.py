@@ -1,33 +1,12 @@
-# Файлы и ОС-модули
-# позволяет создавать различные библиотеки, файлы и т.п.
+# читаем файл и вытаскиваем информацию,
+# убираем повторы и делаем сортированный список
+res = []
 
-import os
+with open('./docs/list.txt', 'rt') as f:
+    while temp := f.readline().rstrip('\n'):
+        res += temp.split(', ')
 
-# будет создана директория в корневом каталоге
-os.mkdir('libs')
+# res = list(map(lambda x: x.rstrip('\n'), res))
+res = sorted(int(x) for x in set(res))
 
-# Мягкое создание директории ( вместо mkdir)
-os.makedirs('libs', exist_ok=True)
-
-# удаление директории
-os.rmdir('libs')
-
-# проверка существования пути
-os.path.exists('libs')
-
-# get current working directory
-path = os.getcwd()
-print(path)
-
-# выйти на нужную директорию
-os.chdir(path + '/images')
-
-# выскочить на уровень выше и занырнуть в другую директорию
-os.chdir('..')
-os.chdir(path + '/fonts')
-print(os.getcwd())
-
-# получить список всех файлов в директории по условию
-all_files = [f for f in os.listdir('.') if f.endswith('.ttf')]
-os.chdir('..')
-print(all_files)
+print(res)
