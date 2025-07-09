@@ -67,7 +67,7 @@
 # print(p.person_info())
 #
 # # Статичные члены класса
-from lib import Car
+# from lib import Car
 #
 # car1 = Car()
 # car2 = Car()
@@ -97,5 +97,26 @@ from lib import Car
 # for i in range(100):
 #     nums.add_num(i)
 # print(f'Список чётных чисел: {nums.get_even()}; Список нечётных чисел: {nums.get_odd()}')
+#
+# from lib import Sorted
+# s = Sorted()
+#
+# for i in range(5):
+#     s.add_word(input())
+#
+# print(s.result())
 
-s = Sorted()
+from lib import Balance
+
+b = Balance()
+
+b.add_left(5)
+b.add_right(4)
+b.add_left(3)
+b.add_right(5)
+b.add_left(6)
+b.add_right(7)
+b.add_left(2)
+b.add_right(4)
+
+print(b.result())

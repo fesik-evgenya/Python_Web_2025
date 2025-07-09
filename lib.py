@@ -1,13 +1,28 @@
+class Balance:
+    def __init__(self) -> None:
+        self._right = 0
+        self._left = 0
+
+    def add_left(self, weight: int) -> None:
+        self._left += weight
+
+    def add_right(self, weight: int) -> None:
+        self._right += weight
+
+    def result(self) -> str:
+        return 'Левая перевесила' if self._left > self._right \
+            else 'Правая перевесила' if self._left < self._right \
+            else 'Достигнут баланс'
+
 class Sorted:
     def __init__(self):
         self._words = []
 
     def add_word(self, word: str):
-        pass
+        self._words.append(word)
 
     def result(self):
-        # список слов отсортированный по длине
-
+        return sorted(self._words, key=lambda x: len(x), reverse=True)
 
 
 class Separator:
