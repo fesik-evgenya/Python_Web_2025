@@ -1,3 +1,30 @@
+class SquareFunction:
+    def __init__(self, a, b, c):
+        self._a = a
+        self._b = b
+        self._c = c
+
+    def __call__(self,x):
+        return self._a * x ** 2 + self._b * x + self._c
+
+
+class MyTime:
+    def __init__(self, minutes, seconds):
+        if 23 >= minutes >= 0:
+            self._minutes = minutes
+        if 59 >= seconds >= 0:
+            self._seconds = seconds
+
+    def __str__(self):
+        return f'<Time {self._minutes}:{self._seconds}>'
+
+    def __add__(self, other):
+        m = self._minutes + other._minutes
+        s = self._seconds + other._seconds
+        m += s // 60
+        s = s % 60
+        return MyTime(m, s)
+
 class Calc:
     def __init__(self, lst: list) -> None:
         self._lst = lst[:]  # получаем копию

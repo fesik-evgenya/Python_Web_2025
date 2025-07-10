@@ -1,7 +1,8 @@
 # Полиморфизм + Утиная типизация
 # следим как на уровне синтаксиса и на уровне смысла
 # <isinstance(объект, тип)> -> True способ узнать тип возвращаемых из класса данных
-
+# __call__ - экземпляр класса становиться вызываемым как функция
+# y = ax^2 + bx +c
 from lib import Squared, Circle, Rectangle
 # 1й способ
 # def shape_info(shape):
@@ -86,3 +87,7 @@ p1 = Point(5, 4)
 p2 = Point(10, 2)
 print(p1 - p2)
 print(f'Приближённое расстояние между двумя точками: {p1 + p2}')
+
+from lib import SquareFunction
+s = SquareFunction(1, 2, 3)
+print(s(2))
