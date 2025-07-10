@@ -1,3 +1,149 @@
+class Calc:
+    def __init__(self, lst: list) -> None:
+        self._lst = lst[:]  # получаем копию
+
+    def get_min(self):
+       if all(isinstance(item, int) for item in self._lst):
+           return min(self._lst)
+       else:
+           return f'В списке не все элементы - целые числа!!!'
+
+    def get_max(self):
+        if all(isinstance(item, int) for item in self._lst):
+            return max(self._lst)
+        else:
+            return f'В списке не все элементы - целые числа!!!'
+
+    def get_avg(self):
+        if all(isinstance(item, int) for item in self._lst):
+            return sum(self._lst) / len(self._lst)
+        else:
+            return f'В списке не все элементы - целые числа!!!'
+
+class Selector:
+    def __init__(self, lst: list) -> None:
+        self._lst = lst[:]  # получаем копию
+
+    def get_odd(self) -> list:
+        return [x for x in self._lst if x % 2]
+
+    def get_even(self) -> list:
+        return [x for x in self._lst if x % 2 == 0]
+
+
+class Student:
+    def __init__(self, name: str='NoName', age: int=18, university: str='None') -> None:
+        # свойства (поля) класса
+        self._name = name
+        self._age = age
+        self._university = university
+
+    # setters
+    def set_name(self, new_name: str) -> None:
+        if new_name:
+            self._name = new_name
+
+    def set_age(self, new_age: int) -> None:
+        if 0 < new_age < 150:
+            self._age = new_age
+        else:
+            print('Некорректный возраст — ', new_age)
+
+    def set_university(self, new_university: str) -> None:
+        if new_university:
+            self._university = new_university
+
+    # getters
+    def get_name(self) -> str:
+        return self._name
+
+    def get_age(self) -> int:
+        return self._age
+
+    def get_university(self) -> str:
+        return self._university
+
+
+class Employee:
+    def __init__(self, name: str='NoName', age: int=18, company: str='None') -> None:
+        # свойства (поля) класса
+        self._name = name
+        self._age = age
+        self._company = company
+
+    # setters
+    def set_name(self, new_name: str) -> None:
+        if new_name:
+            self._name = new_name
+
+    def set_age(self, new_age: int) -> None:
+        if 0 < new_age < 150:
+            self._age = new_age
+        else:
+            print('Некорректный возраст — ', new_age)
+
+    def set_university(self, new_company: str) -> None:
+        if new_company:
+            self._company = new_company
+
+    # getters
+    def get_name(self) -> str:
+        return self._name
+
+    def get_age(self) -> int:
+        return self._age
+
+    def get_company(self) -> str:
+        return self._company
+
+from math import pi
+
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+        self._name = 'Круг'
+
+    def perimetr(self):
+        return round(2 * pi * self._radius)
+
+    def area(self):
+        return self._radius ** 2
+
+    def get_name(self):
+        return self._name
+
+
+class Rectangle:
+    def __init__(self, wight, height):
+        self._wight = wight
+        self._height = height
+        self._name = 'Прямоугольник'
+
+    def perimetr(self):
+        return 2 * (self._wight + self._height)
+
+    def area(self):
+        return self._wight * self._height
+
+    def get_name(self):
+        return self._name
+
+
+class Squared:
+    def __init__(self, side):
+        self._side = side
+        self._name = 'Квадрат'
+
+    def perimetr(self):
+        return 4 * self._side
+
+    def area(self):
+        return self._side ** 2
+
+    def get_name(self):
+        return self._name
+
+
 class Balance:
     def __init__(self):
         self._right = 0
@@ -64,7 +210,7 @@ class Balance:
         """
         Возвращает в процентах от веса более лёгкой чаши,
         на сколько вторая чаша тяжелее.
-        :return: положительное число, если левая чаша тяжелее,
+        :return: Положительное число, если левая чаша тяжелее,
                 отрицательное число, если правая чаша тяжелее,
                 0, если весы в равновесии
         """
