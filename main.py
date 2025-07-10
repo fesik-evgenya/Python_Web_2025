@@ -2,34 +2,35 @@
 # класс, от которого наследуем: базовый, родительский, суперкласс
 # класс, который наследуется: производный, дочерний
 
-# class Rectangle:
-#     def __init__(self, wight, height):
-#         self._wight = wight
-#         self._height = height
-#         self._name = 'Прямоугольник'
-#
-#     def perimetr(self):
-#         return 2 * (self._wight + self._height)
-#
-#     def area(self):
-#         return self._wight * self._height
-#
-#     def get_name(self):
-#         return self._name
-#
-# # ->>>> наследование квадратом всего от прямоугольника
-# class Squared(Rectangle):
-#     def __init__(self, side):
-#         super().__init__(side, side)
-#         self._name = 'Квадрат'
-#
-#     def get_name(self):
-#         return self._name
-#
-#
-# s = Squared(5)
-# print(s.area())
-# print(s.perimetr())
+class Rectangle:
+    def __init__(self, wight, height):
+        self._wight = wight
+        self._height = height
+        self._name = 'Прямоугольник'
+
+    def perimetr(self):
+        return 2 * (self._wight + self._height)
+
+    def area(self):
+        return self._wight * self._height
+
+    def get_name(self):
+        return self._name
+
+# ->>>> наследование квадратом всего от прямоугольника
+class Squared(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
+        self._name = 'Квадрат'
+
+    def get_name(self):
+        return self._name
+
+
+s = Squared(5)
+print(s.area())
+print(s.perimetr())
+
 from math import pi
 from abc import ABC, abstractmethod
 
@@ -143,6 +144,35 @@ print(client.get_balance())
 # Класс Zoo хранит список животных и метод make_all_sound
 #
 # """
-#
-# class Animal:
-#     def __init__(self):
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def make_sound(self) -> None:
+        pass
+
+class Dog(Animal):
+    def make_sound(self) -> None:
+        print('Гав-Гав!')
+
+class Cat(Animal):
+    def make_sound(self) -> None:
+        print('Мяяяяууу!!')
+
+class Elephant(Animal):
+    def make_sound(self) -> None:
+        print('туту-туууууууууууууууууууууууууу!')
+
+class Zoo:
+    def __init__(self) -> None:
+        # получаем список классов
+        self._all_animal_classes = Animal.__subclasses__()
+        # создаём экземпляры классов
+        self._all_animals = [cls() for cls in self._all_animal_classes]
+
+    def make_all_sound(self) -> None:
+        for animal in self._all_animals:
+            animal.make_sound()
+
+animal_list = Zoo()
+animal_list.make_all_sound()
