@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell sans-serif;
+    font-weight: 300;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding: 0 5px;
+    align-items: center;
+}
+
+/* Типография */
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 1200px;
+    margin-top: 15px;
+}
+
+.headerList {
+    display: flex;
+    align-items: center;
+    gap: clamp(25px, 2.5vw, 40px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.info {
+    margin-top: 60px;
+}
+
+.btn {
+    background-color: #d82c20;
+    border-radius: 10px;
+    border: none;
+    width: 130px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 4px rgba(192, 160, 64, 0.2);
+    flex-shrink: 0;
+}
+}
