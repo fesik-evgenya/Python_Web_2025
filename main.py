@@ -1,68 +1,46 @@
-# CSV-файлы
-import csv
+# JSON - (Java Script Object Notation)
+# для чтения из файла- load()
+# читает строковое представление - loads()
+import json
 
-data = [
-    ['name', 'age', 'city'],
-    ['Борис', '25', 'Воронеж'],
-    ['Ирина', '32', 'Тверь'],
-    ['Владимир', '18', 'Санкт-Петербург'],
-    ['Светлана', '27', 'Москва'],
-]
+with open('dogs.json', 'rt') as fd:
+    data = json.load(fd)  # напрямую из файла
 
-# прочитали файл
-with open('people.csv', 'r', encoding='utf-8') as f:
-    reader = csv.reader(f, delimiter=',', quotechar='"')
-    for row in reader:
-        print(row)
+for key, value in data.items():
+    if type(value) == list:
+        print(f'{key}: {', '.join(value)}')
+    else:
+        print(f'{key}: {value}')
 
-# записали в файл
-with open('employee.csv', 'w', newline='', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    writer.writerows(data)
+# прочитать как строку
+with open('dogs.json', 'rt') as fd:
+    temp = fd.read()  # читаем файл как строку
+    data = json.loads(temp)  # строковое представление json
 
-# читаем через dict
-with open('people.csv', 'r', encoding='utf-8') as f:
-    dict_reader = csv.DictReader(f)
-    for row in dict_reader:
-        print(f'{row['name']} живёт в городе {row['city']}.')
+for key, value in data.items():
+    if type(value) == list:
+        print(f'{key}: {', '.join(value)}')
+    else:
+        print(f'{key}: {value}')
 
-field_names = ['name','age','city']
-data = {
-    'name': 'Борис',
-    'age': '25',
-    'city': 'Воронеж',
+for i in range(len(data)):
+    print(f'\nПитомец №{i+1}')
+    for k, v in data[i].items():
+        if type(v) == list:
+            print(f'\t{k}: {', '.join(v)}')
+        else:
+            print(f'\t{k}: {v}')
+
+d = {
+    'ананас': 300,
+    'банан': 400,
+    'яблоко': 120 ,
+    'груша': 280
 }
 
-with open('file.csv', 'w', newline='', encoding='utf') as f:
-    writer = csv.DictWriter(f, fieldnames=field_names)
-    writer.writerow(data)
+with open('fruits.json', 'w', encoding='utf-8') as f:
+    json.dump(d, f, indent=4)  # записываем в файл
 
-# режим кватирования (сразу запись разных форматов в файл = строки-строками и числа-числами
-data = ['name', 25 ,'town']
-with open('sample.csv', 'w', newline='', encoding='utf-8') as f:
-    writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-    writer.writerow(data)
-
-# ZIP
-from zipfile import ZipFile
-import os
-
-# заархиваровать
-csv_files = [f for f in os.listdir() if f.endswith('.csv')]
-with ZipFile('archive.zip', 'w') as myzip:
-    for file in csv_files:
-        myzip.write(file)
-        os.remove(file)
-
-# разархивировать
-with ZipFile('archive.zip', 'r') as zip_obj:
-    zip_obj.extractall()
-
-# разархивировать конкретный файл
-files_to_extract = ['people.csv', 'file.scv']
-with ZipFile('archive.zip', 'r') as zip_obj:
-    zip_obj.extractall(members=files_to_extract)
-
-# список файлов в архиве
-with ZipFile('archive.zip', 'r') as zip_obj:
-    print(zip_obj.namelist())
+# вывод в виде строки
+data = json.dumps(d, indent=4)
+print(data)
