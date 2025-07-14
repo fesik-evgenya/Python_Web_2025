@@ -1,47 +1,21 @@
-# # Протоколы
-#
-# # Transmission Control Protocol (TCP) — протокол управления передачей
-# # Internet Protocol (IP) - разбивает на пакеты (IP-дейтаграммы)
-# # TCP/IP
-# # HTTP(S) - Hyper Text Transfer Protocol (Secured)
-# # FTP - File Transfer Protocol
-# # SMTP - Simple Mail Transfer Protocol
-# # Хост-система
-# # 1. Обязательная - IP-адрес: 195.34.32.11
-# # 2. Необязательная - DNS (Domain Name System)
-# # http(s)://www.yandex.рф//
-# # ASCII %20, %2C
-# # URL - Uniform Resource Locator
-# # http(s)://домен.зона/page1/?param1=value1&param2=value2
-# # ../font/
-#
-# import sys
-#
-# print('Я', sys.argv[0], 'и мой аргумент', sys.argv[1])
-#
-#
-# if len(sys.argv) >= 2:
-#     match sys.argv[1]:
-#         case 'p':
-#             print('Привет')
-#         case 'g':
-#             print('Привет')
-#         case _:
-#             print('Не понял')
+# CSV-файлы
+import csv
 
-# Периодические задачи
-import schedule
-import datetime
+data = [
+    ['name', 'age', 'city'],
+    ['Борис', '25', 'Воронеж'],
+    ['Ирина', '32', 'Тверь'],
+    ['Владимир', '18', 'Санкт-Петербург'],
+    ['Светлана', '27', 'Москва'],
+]
 
-i = 1
-def job():
-    global i
-    print(f'Скрипт запустился {i}')
-    i += 1
-    t = datetime.datetime.now()
-    print('Время: ', t.strftime('%H:%M:%S'))
+# прочитали файл
+with open('people.csv', 'r', encoding='utf-8') as f:
+    reader = csv.reader(f, delimiter=',', quotechar='"')
+    for row in reader:
+        print(row)
 
-schedule.every(3).seconds.do(job)
-
-while True:
-    schedule.run_pending()
+# записали в файл
+with open('employee.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerows(data)
