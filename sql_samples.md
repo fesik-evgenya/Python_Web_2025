@@ -18,3 +18,14 @@ SELECT title, duration
 FROM films
 WHERE duration in (45, 60, 90)
 ORDER BY duration DESC
+
+# добавили значения в таблицу
+INSERT INTO 
+users(name, age)
+VALUES('Tom', 20),
+('Tim', 45)
+
+# изменение возраста записи
+UPDATE users
+SET age=22
+WHERE ID=2

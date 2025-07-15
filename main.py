@@ -1,29 +1,28 @@
-# Базы данных (чтение)
-"""
-1. Импорт библиотеки sqlite3
-2. Подключаемся к БД
-3. Назначить "курсор"
-4. Работаем с БД ( запросы и ответы)
-5. Отключаемся от БД
-"""
+# Базы данных (запись)
 import sqlite3
+import csv
 
-# подключаемся
-connection = sqlite3.connect('./db/movies.sqlite')
+# запрос (помощью курсора)
+# читаем файл CSV
+with open('people.csv', 'r', encoding='utf-8') as f:
+    reader = csv.reader(f, delimiter=',')
+    next(reader) # пропустить заголовок
 
-# Курсор
-cursor = connection.cursor()
+    # подключаемся
+    connection = sqlite3.connect('./db/movies.sqlite')
+    # курсор
+    cursor = connection.cursor()
+    # запрос (помощью курсора)
 
-# запрос ( с помощью курсора)
-result = cursor.execute(
-    """
-    SELECT title, year
-    FROM films
-    WHERE year = 2010
-    """
-)
-
-# fetchall() - всё; fetchone() - один, первый; fetchmany(5) - первые 5 шт
-array = result.fetchall()
-for title, year in array:
-    print(f'Фильм "{title}" вышел в {year} году.')
+    for name, age in reader:
+        result = cursor.execute(
+            """
+            INSERT INTO 
+            users ('name', age)
+            VALUES (?, ?)
+            """, (name, int(age))
+        )
+    # подтверждение
+    connection.commit()
+    # закрываем подключение
+    connection.close()
