@@ -1,0 +1,14 @@
+form.login_form {
+    max-width: 450px;
+    margin: auto auto;
+    background-color: #EEE8AA;
+    padding: 10px;
+    border: 1px solid #FFD700;
+    border-radius: 12px;
+    gap: 5px;
+
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
