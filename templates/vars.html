@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% set user_list = ['Том', 'Тим', 'Боб', 'Билл'] %}
+<h1>В очереди: </h1>
+<ul>
+    {% for user in user_list %}
+    <li>{{loop.index}} - {{user}}
+    {% if loop.first %}
+    первый в очереди
+    {% elif loop.last %}
+    последний в очереди
+    {% endif %}
+    {% endfor %}</li>
+</ul>
+</body>
+</html>

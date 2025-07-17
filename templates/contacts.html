@@ -1,0 +1,27 @@
+{% extends "base.html"%}
+
+
+{% block content %}
+<div class="contacts-block">
+    <div class="contact-item">
+        <img src="./assets/images/icons/icon-home.svg" alt="Адрес" class="contact-item__icon">
+        <p class="contact-item__text" data-admin-field="address">{{address}}</p>
+    </div>
+
+    <div class="contact-item">
+        <img src="./assets/images/icons/icon_email.svg" alt="Email" class="contact-item__icon">
+        <a href="mailto:my-longhair@mail.ru" class="contact-link" data-admin-field="email">{{email}}</a>
+    </div>
+
+    <div class="contact-item">
+        <img src="./assets/images/icons/icon_phone.svg" alt="Телефон" class="contact-item__icon">
+        <a href="tel:+79913676565" class="contact-link" data-admin-field="phone">{{phone}}</a>
+    </div>
+
+    <div class="contact-item">
+        <img src="./assets/images/icons/icon_VK.svg" alt="Vkontante" class="contact-item__icon">
+        <a href="{{vk_group}}" class="contact-link" data-admin-field="vk_link">Группа
+            в VK</a>
+    </div>
+</div>
+{% endblock %}

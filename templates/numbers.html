@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+{% if number %}
+    {% if number % 2 == 0 %}
+    <p>Число {{number}} - чётное!</p>
+    {% else %}
+    <p>Число {{number}} - нечётное!</p>
+    {% endif %}
+{% else %}
+    <p>Число не введено!</p>
+{% endif %}
+</body>
+</html>
