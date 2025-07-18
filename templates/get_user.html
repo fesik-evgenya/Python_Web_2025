@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if users %}
+<h1>Список пользователей</h1>
+<ol>
+    {% for user in users %}
+    <li><a href="http://localhost:5000/get-user/{{user[0]}}">{{user[1]}}</a><br></li>
+    {% endfor %}
+</ol>
+{% else %}
+<h1>Данные о пользователе: {{name}}</h1>
+<p>Был командирован в {{city}}</p>
+<p>Дата отправки в командировку: {{start}}</p>
+<button onclick="history.go(-1)">Назад</button>
+{% endif %}
+
+{% endblock %}

@@ -1,8 +1,12 @@
 import datetime
 import sqlalchemy
-from .db_session import SqlAlchemyBase
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(SqlAlchemyBase):
+from .db_session import SqlAlchemyBase
+from sqlalchemy import orm
+
+class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -20,3 +24,18 @@ class User(SqlAlchemyBase):
                                         nullable=True)
     create_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                     default=datetime.datetime.now)
+    news = orm.relationship("News", back_populates='user')
+
+    def set_username(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f'<User: {self.name}>'
+
+    # кодируем пароль пользователя и отправляем в переменную
+    def set_password(self, password):
+        self.hashed_password = generate_password_hash(password)
+
+    # сверяем пароль с зашифрованным паролем пользователем
+    def check_password(self, password):
+        return check_password_hash(self.hashed_password, password)
